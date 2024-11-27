@@ -42,6 +42,15 @@ public class InventoryManager {
         }
     }
 
+    // Get the stock quantity of a product
+    public int getStock(String name) {
+        if (products.containsKey(name)) {
+            return products.get(name).getStock();
+        } else {
+            return -1;
+        }
+    }
+
     // List all products in the inventory
     public void listAllProducts() {
         if (products.isEmpty()) {
@@ -50,6 +59,18 @@ public class InventoryManager {
             System.out.println("Inventory:");
             for (Product product : products.values()) {
                 System.out.println(" - " + product.getName() + ": " + product.getStock() + " units");
+            }
+        }
+    }
+
+    //List all categories in the inventory
+    public void listAllCategories() {
+        if (products.isEmpty()) {
+            System.out.println("No products in inventory.");
+        } else {
+            System.out.println("Categories:");
+            for (Product product : products.values()) {
+                System.out.println(" - " + product.getCategory());
             }
         }
     }
@@ -70,4 +91,5 @@ public class InventoryManager {
             System.out.println("No products with approaching expiry dates.");
         }
     }
+
 }
