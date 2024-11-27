@@ -3,12 +3,14 @@ package main.java.inventory;
 import java.time.LocalDate;
 
 public class Product {
+
     private String name;
     private int stock;
     private double price;
     private String category;
     private LocalDate expiryDate;
 
+    // Constructor for Product class
     public Product(String name, int stock, double price, String category, LocalDate expiryDate) {
         this.name = name;
         this.stock = stock;
@@ -17,6 +19,7 @@ public class Product {
         this.expiryDate = expiryDate;
     }
 
+    // Getters and setters for Product properties
     public String getName() {
         return name;
     }
