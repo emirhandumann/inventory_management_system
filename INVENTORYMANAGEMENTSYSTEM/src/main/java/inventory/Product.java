@@ -2,7 +2,7 @@ package main.java.inventory;
 
 import java.time.LocalDate;
 
-public class Product {
+public class Product implements ProductComponent {
 
     private String name;
     private int stock;
@@ -54,5 +54,20 @@ public class Product {
 
     public void setExpiryDate(LocalDate expiryDate) {
         this.expiryDate = expiryDate;
+    }
+
+    @Override
+    public void add(ProductComponent productComponent) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public void remove(ProductComponent productComponent) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public ProductComponent getChild(int i) {
+        throw new UnsupportedOperationException();
     }
 }
