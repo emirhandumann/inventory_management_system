@@ -172,13 +172,19 @@ public class InventoryUI extends JFrame {
         String[] columnNames = {"Category", "Product Name", "Stock"};
         DefaultTableModel model = new DefaultTableModel(columnNames, 0);
         Map<String, ProductComponent> products = manager.getProducts();
-        for (String category : products.values().stream().map(ProductComponent::getCategory).distinct().collect(Collectors.toList())) {
-            for (ProductComponent productComponent : products.values()) {
-                if (productComponent.getCategory().equals(category)) {
-                    model.addRow(new Object[]{category, productComponent.getName(), productComponent.getStock()});
+        products.values().stream()
+            .sorted((p1, p2) -> {
+                int categoryComparison = p1.getCategory().compareTo(p2.getCategory());
+                if (categoryComparison != 0) {
+                    return categoryComparison;
                 }
-            }
-        }
+                return p1.getName().compareTo(p2.getName());
+            })
+            .forEach(productComponent -> model.addRow(new Object[]{
+                productComponent.getCategory(),
+                productComponent.getName(),
+                productComponent.getStock()
+            }));
         JTable table = new JTable(model);
         JScrollPane scrollPane = new JScrollPane(table);
         JOptionPane.showMessageDialog(this, scrollPane, "Products", JOptionPane.INFORMATION_MESSAGE);

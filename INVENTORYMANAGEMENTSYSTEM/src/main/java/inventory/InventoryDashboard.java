@@ -83,7 +83,6 @@ public class InventoryDashboard extends JFrame {
             int width = getWidth();
             int height = getHeight();
             int padding = 150;
-            int labelPadding = 50;
             int barHeight = (height - 2 * padding) / data.size();
 
             int maxStock = Arrays.stream(values).max().orElse(1);

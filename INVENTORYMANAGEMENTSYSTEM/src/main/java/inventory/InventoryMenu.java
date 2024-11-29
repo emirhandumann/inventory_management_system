@@ -5,11 +5,19 @@ import java.util.Scanner;
 
 public class InventoryMenu {
 
+    private static InventoryMenu instance;
     private InventoryManager manager;
 
-    // Constructor initializes the InventoryManager instance
-    public InventoryMenu() {
+    // private constructor to prevent instantiation
+    private InventoryMenu() {
         this.manager = InventoryManager.getInstance();
+    }
+
+    public static InventoryMenu getInstance() {
+        if (instance == null) {
+            instance = new InventoryMenu();
+        }
+        return instance;
     }
 
     // Start the terminal menu and handle user input
@@ -40,7 +48,7 @@ public class InventoryMenu {
                 case 4 ->
                     manager.listAllCategories(); // List all categories
                 case 5 ->
-                    manager.listAllProducts(); // List all products
+                    manager.listAllProducts(); // List all products sorted by category names
                 case 6 ->
                     manager.listExpiringProducts(30); // Show products expiring in the next 30 days
                 case 7 ->

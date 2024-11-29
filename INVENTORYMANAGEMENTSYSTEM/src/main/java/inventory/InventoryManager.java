@@ -4,15 +4,18 @@ import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
+import java.util.*;
 
 public class InventoryManager {
 
     private static InventoryManager instance; // Singleton instance
     private Map<String, ProductComponent> products; // Store products in a Map
+    private Map<String, InventoryComposite> categories;
 
     // Private constructor for Singleton pattern
     private InventoryManager() {
         products = new HashMap<>();
+        categories = new HashMap<>();
         SampleData.initializeSampleData(this);
     }
 
@@ -55,13 +58,12 @@ public class InventoryManager {
 
     // List all products in the inventory
     public void listAllProducts() {
-        if (products.isEmpty()) {
-            System.out.println("No products in inventory.");
-        } else {
-            System.out.println("Inventory:");
-            for (ProductComponent product : products.values()) {
-                System.out.println(" - " + product.getName() + ": " + product.getStock() + " units");
-            }
+        List<String> sortedCategories = new ArrayList<>(categories.keySet());
+        Collections.sort(sortedCategories);
+        for (String category : sortedCategories) {
+            System.out.println("Category: " + category);
+            InventoryComposite composite = categories.get(category);
+            composite.display();
         }
     }
 
