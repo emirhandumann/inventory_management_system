@@ -1,25 +1,22 @@
 package main.java.inventory;
 
 import java.time.LocalDate;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.stream.Collectors;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class InventoryManager {
 
-    private static InventoryManager instance; // Singleton instance
-    private Map<String, ProductComponent> products; // Store products in a Map
+    private static InventoryManager instance;
+    private Map<String, ProductComponent> products;
     private Map<String, InventoryComposite> categories;
+    private List<Observer> observers = new ArrayList<>();
 
-    // Private constructor for Singleton pattern
     private InventoryManager() {
         products = new HashMap<>();
         categories = new HashMap<>();
         SampleData.initializeSampleData(this);
     }
 
-    // Public method to get the single instance of InventoryManager
     public static synchronized InventoryManager getInstance() {
         if (instance == null) {
             instance = new InventoryManager();
@@ -27,7 +24,20 @@ public class InventoryManager {
         return instance;
     }
 
-    // Add a new product to the inventory
+    public void addObserver(Observer observer) {
+        observers.add(observer);
+    }
+
+    public void removeObserver(Observer observer) {
+        observers.remove(observer);
+    }
+
+    public void notifyObservers(String productName, int newStock) {
+        for (Observer observer : observers) {
+            observer.update(productName, newStock);
+        }
+    }
+
     public void addProduct(String name, int stock, double price, String category, LocalDate expiryDate) {
         if (!products.containsKey(name)) {
             products.put(name, new Product(name, stock, price, category, expiryDate));
@@ -37,17 +47,18 @@ public class InventoryManager {
         }
     }
 
-    // Update the stock quantity of an existing product
     public void updateStock(String name, int stock) {
         if (products.containsKey(name)) {
             ((Product) products.get(name)).setStock(stock);
+
             System.out.println("Stock updated for product: " + name);
+
+            notifyObservers(name, stock);
         } else {
             System.out.println("Product not found!");
         }
     }
 
-    // Get the stock quantity of a product
     public int getStock(String name) {
         if (products.containsKey(name)) {
             return products.get(name).getStock();
@@ -56,18 +67,25 @@ public class InventoryManager {
         }
     }
 
-    // List all products in the inventory
     public void listAllProducts() {
-        List<String> sortedCategories = new ArrayList<>(categories.keySet());
-        Collections.sort(sortedCategories);
-        for (String category : sortedCategories) {
-            System.out.println("Category: " + category);
-            InventoryComposite composite = categories.get(category);
-            composite.display();
+        if (products.isEmpty()) {
+            System.out.println("No products in inventory.");
+            return;
+        }
+
+        System.out.println("=== All Products in Inventory ===");
+        for (ProductComponent productComponent : products.values()) {
+            if (productComponent instanceof Product) {
+                Product product = (Product) productComponent;
+                System.out.println("Name: " + product.getName() +
+                        ", Stock: " + product.getStock() +
+                        ", Price: " + product.getPrice() +
+                        ", Category: " + product.getCategory() +
+                        ", Expiry Date: " + product.getExpiryDate());
+            }
         }
     }
 
-    // List all categories in the inventory
     public void listAllCategories() {
         if (products.isEmpty()) {
             System.out.println("No products in inventory.");
@@ -81,7 +99,6 @@ public class InventoryManager {
         }
     }
 
-    // List products with expiry date within a given number of days
     public void listExpiringProducts(int days) {
         LocalDate today = LocalDate.now();
         boolean found = false;
@@ -101,7 +118,6 @@ public class InventoryManager {
         }
     }
 
-    // Method to get all products
     public Map<String, ProductComponent> getProducts() {
         return products;
     }
@@ -113,5 +129,4 @@ public class InventoryManager {
                         Collectors.summingInt(ProductComponent::getStock)));
         return categoryStocks;
     }
-
 }

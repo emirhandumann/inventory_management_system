@@ -8,7 +8,6 @@ public class InventoryMenu {
     private static InventoryMenu instance;
     private InventoryManager manager;
 
-    // private constructor to prevent instantiation
     private InventoryMenu() {
         this.manager = InventoryManager.getInstance();
     }
@@ -20,7 +19,6 @@ public class InventoryMenu {
         return instance;
     }
 
-    // Start the terminal menu and handle user input
     public void start() {
         Scanner scanner = new Scanner(System.in);
         int choice;
@@ -36,30 +34,41 @@ public class InventoryMenu {
             System.out.println("7. Exit");
             System.out.print("Your choice: ");
             choice = scanner.nextInt();
-            scanner.nextLine(); // Clear the buffer
+            scanner.nextLine();
 
             switch (choice) {
                 case 1 ->
-                    addProduct(scanner); // Add a new product
+                    addProduct(scanner);
                 case 2 ->
-                    updateStock(scanner); // Update stock of an existing product
+                    updateStock(scanner);
                 case 3 ->
-                    getStock(scanner); // Get stock of a product
+                    getStock(scanner);
                 case 4 ->
-                    manager.listAllCategories(); // List all categories
+                    manager.listAllCategories();
                 case 5 ->
-                    manager.listAllProducts(); // List all products sorted by category names
+                    manager.listAllProducts();
                 case 6 ->
-                    manager.listExpiringProducts(30); // Show products expiring in the next 30 days
+                    manager.listExpiringProducts(30);
+                case 8 -> {
+                    System.out.print("Enter product name to track: ");
+                    String productName = scanner.nextLine();
+
+                    System.out.print("Enter pharmacy name: ");
+                    String pharmacyName = scanner.nextLine();
+
+                    PharmacyObserver pharmacy = new PharmacyObserver(pharmacyName);
+                    manager.addObserver(pharmacy);
+
+                    System.out.println("Pharmacy '" + pharmacyName + "' is now tracking '" + productName + "'.");
+                }
                 case 7 ->
                     System.out.println("Exiting the system...");
                 default ->
-                    System.out.println("Invalid choice, please try again!");
+                    System.out.println("Invalid Choice, Please try again!");
             }
-        } while (choice != 7); // Repeat until user chooses to exit
+        } while (choice != 7);
     }
 
-    // Method to add a new product
     private void addProduct(Scanner scanner) {
         System.out.print("Product name: ");
         String name = scanner.nextLine();
@@ -69,7 +78,7 @@ public class InventoryMenu {
 
         System.out.print("Price: ");
         double price = scanner.nextDouble();
-        scanner.nextLine(); // Clear the buffer
+        scanner.nextLine();
 
         System.out.print("Category: ");
         String category = scanner.nextLine();
@@ -80,7 +89,6 @@ public class InventoryMenu {
         manager.addProduct(name, stock, price, category, expiryDate);
     }
 
-    // Method to update stock of an existing product
     private void updateStock(Scanner scanner) {
         System.out.print("Product name to update: ");
         String name = scanner.nextLine();
@@ -91,7 +99,6 @@ public class InventoryMenu {
         manager.updateStock(name, stock);
     }
 
-    // Method to get stock of a product
     private void getStock(Scanner scanner) {
         System.out.print("Product name: ");
         String name = scanner.nextLine();
