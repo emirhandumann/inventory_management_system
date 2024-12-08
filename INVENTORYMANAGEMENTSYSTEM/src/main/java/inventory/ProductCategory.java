@@ -4,7 +4,9 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+// Composite class for ProductCategory
 public class ProductCategory implements ProductComponent {
+
     private String name;
     private List<ProductComponent> products = new ArrayList<>();
 
@@ -12,6 +14,7 @@ public class ProductCategory implements ProductComponent {
         this.name = name;
     }
 
+    // Implementing methods from ProductComponent interface
     @Override
     public String getName() {
         return name;

@@ -1,10 +1,11 @@
-
 package main.java.inventory;
 
 import java.util.ArrayList;
 import java.util.List;
 
+// Composite class that extends InventoryComponent
 public class InventoryComposite extends InventoryComponent {
+
     private List<InventoryComponent> components = new ArrayList<>();
     private String name;
 
@@ -12,6 +13,7 @@ public class InventoryComposite extends InventoryComponent {
         this.name = name;
     }
 
+    // Implementing the methods of the InventoryComponent interface
     @Override
     public void add(InventoryComponent component) {
         components.add(component);

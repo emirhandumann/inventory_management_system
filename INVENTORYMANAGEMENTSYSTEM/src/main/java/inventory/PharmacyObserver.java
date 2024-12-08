@@ -2,13 +2,16 @@ package main.java.inventory;
 
 import java.util.Scanner;
 
+// Observer class that implements the Observer interface
 public class PharmacyObserver implements Observer {
+
     private String pharmacyName;
 
     public PharmacyObserver(String pharmacyName) {
         this.pharmacyName = pharmacyName;
     }
 
+    // Implementing the update method of the Observer interface
     @Override
     public void update(String productName, int newStock) {
         System.out.println("Notification send to " + pharmacyName + ": Product '" + productName
@@ -30,15 +33,21 @@ public class PharmacyObserver implements Observer {
             scanner.nextLine();
 
             switch (choice) {
-                case 1 -> checkStock(manager, scanner);
-                case 2 -> orderProduct(manager, scanner);
-                case 3 -> trackProduct(manager, scanner);
-                case 4 -> System.out.println("Returning to main menu...");
-                default -> System.out.println("Invalid Choice, Try again, please!");
+                case 1 ->
+                    checkStock(manager, scanner);
+                case 2 ->
+                    orderProduct(manager, scanner);
+                case 3 ->
+                    trackProduct(manager, scanner);
+                case 4 ->
+                    System.out.println("Returning to main menu...");
+                default ->
+                    System.out.println("Invalid Choice, Try again, please!");
             }
         } while (choice != 4);
     }
 
+    // Methods for the pharmacy operations
     private void checkStock(InventoryManager manager, Scanner scanner) {
         System.out.print("Enter product name: ");
         String productName = scanner.nextLine();
@@ -66,11 +75,10 @@ public class PharmacyObserver implements Observer {
         }
     }
 
-
     private void trackProduct(InventoryManager manager, Scanner scanner) {
         System.out.print("Enter product name to track: ");
         String productName = scanner.nextLine();
-        manager.addObserver(this); // bu eczaneyi takipçi yapıyoruz
+        manager.addObserver(this);
         System.out.println(pharmacyName + " is now tracking " + productName);
     }
 }

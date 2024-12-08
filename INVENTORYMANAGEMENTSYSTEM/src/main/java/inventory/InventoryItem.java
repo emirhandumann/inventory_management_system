@@ -1,7 +1,8 @@
-
 package main.java.inventory;
 
+// Leaf class that extends InventoryComponent
 public class InventoryItem extends InventoryComponent {
+
     private String name;
     private int quantity;
 

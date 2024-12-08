@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.*;
 import java.util.stream.Collectors;
 
+// Singleton class that manages the inventory
 public class InventoryManager {
 
     private static InventoryManager instance;
@@ -17,6 +18,7 @@ public class InventoryManager {
         SampleData.initializeSampleData(this);
     }
 
+    // Singleton pattern
     public static synchronized InventoryManager getInstance() {
         if (instance == null) {
             instance = new InventoryManager();
@@ -24,20 +26,24 @@ public class InventoryManager {
         return instance;
     }
 
+    // Observer pattern add observer
     public void addObserver(Observer observer) {
         observers.add(observer);
     }
 
+    // Observer pattern remove observer
     public void removeObserver(Observer observer) {
         observers.remove(observer);
     }
 
+    // Observer pattern notify observers
     public void notifyObservers(String productName, int newStock) {
         for (Observer observer : observers) {
             observer.update(productName, newStock);
         }
     }
 
+    // Methods which interact with the inventory
     public void addProduct(String name, int stock, double price, String category, LocalDate expiryDate) {
         if (!products.containsKey(name)) {
             products.put(name, new Product(name, stock, price, category, expiryDate));
@@ -77,11 +83,11 @@ public class InventoryManager {
         for (ProductComponent productComponent : products.values()) {
             if (productComponent instanceof Product) {
                 Product product = (Product) productComponent;
-                System.out.println("Name: " + product.getName() +
-                        ", Stock: " + product.getStock() +
-                        ", Price: " + product.getPrice() +
-                        ", Category: " + product.getCategory() +
-                        ", Expiry Date: " + product.getExpiryDate());
+                System.out.println("Name: " + product.getName()
+                        + ", Stock: " + product.getStock()
+                        + ", Price: " + product.getPrice()
+                        + ", Category: " + product.getCategory()
+                        + ", Expiry Date: " + product.getExpiryDate());
             }
         }
     }

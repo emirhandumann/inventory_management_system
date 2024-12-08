@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
+// Application class for the Inventory Management System
 public class InventoryApp extends JFrame {
 
     private InventoryManager manager;
@@ -19,10 +20,11 @@ public class InventoryApp extends JFrame {
         initializeGUI();
     }
 
+    // Method to initialize the GUI components
     private void initializeGUI() {
 
         setTitle("APW - Akdeniz Pharmaceutical Warehouse");
-        setSize(800, 600);
+        setSize(1000, 800);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
 
@@ -31,6 +33,7 @@ public class InventoryApp extends JFrame {
         add(loginPanel);
     }
 
+    // Method to create the login panel
     private JPanel createLoginPanel() {
 
         JPanel panel = new JPanel(new GridBagLayout());
@@ -38,14 +41,14 @@ public class InventoryApp extends JFrame {
         gbc.insets = new Insets(10, 10, 10, 10);
 
         JLabel titleLabel = new JLabel("APW Inventory Management System");
-        titleLabel.setFont(new Font("Arial", Font.BOLD, 40));
+        titleLabel.setFont(new Font("Arial", Font.BOLD, 32));
         gbc.gridx = 0;
         gbc.gridy = 0;
         gbc.gridwidth = 2;
         panel.add(titleLabel, gbc);
 
         JLabel loginTypeLabel = new JLabel("Select Login Type:");
-        loginTypeLabel.setFont(new Font("Arial", Font.BOLD, 24));
+        loginTypeLabel.setFont(new Font("Arial", Font.PLAIN, 24));
         gbc.gridx = 0;
         gbc.gridy = 1;
         gbc.gridwidth = 1;
@@ -59,7 +62,7 @@ public class InventoryApp extends JFrame {
         panel.add(loginTypeCombo, gbc);
 
         JLabel passwordLabel = new JLabel("Password:");
-        passwordLabel.setFont(new Font("Arial", Font.BOLD, 24));
+        passwordLabel.setFont(new Font("Arial", Font.PLAIN, 24));
         gbc.gridx = 0;
         gbc.gridy = 2;
         panel.add(passwordLabel, gbc);
@@ -71,7 +74,7 @@ public class InventoryApp extends JFrame {
         panel.add(passwordField, gbc);
 
         JLabel pharmacyLabel = new JLabel("Pharmacy Name:");
-        pharmacyLabel.setFont(new Font("Arial", Font.BOLD, 24));
+        pharmacyLabel.setFont(new Font("Arial", Font.PLAIN, 24));
         gbc.gridx = 0;
         gbc.gridy = 3;
         pharmacyLabel.setVisible(false);
@@ -120,6 +123,7 @@ public class InventoryApp extends JFrame {
         return panel;
     }
 
+    // Method to create the Warehouse Menu
     private void openWarehouseMenu() {
         getContentPane().removeAll();
         tabbedPane = new JTabbedPane();
@@ -154,8 +158,8 @@ public class InventoryApp extends JFrame {
 
         // Logout Button
         JButton logoutButton = new JButton("Logout");
-        logoutButton.setFont(new Font("Segoe UI", Font.BOLD, 12));
-        logoutButton.setPreferredSize(new Dimension(100, 35));
+        logoutButton.setFont(new Font("Segoe UI", Font.BOLD, 24));
+        logoutButton.setPreferredSize(new Dimension(200, 35));
         logoutButton.addActionListener(e -> {
             getContentPane().removeAll();
             JPanel loginPanel = createLoginPanel();
@@ -176,6 +180,7 @@ public class InventoryApp extends JFrame {
         repaint();
     }
 
+    // Method to create the Add Product panel
     private JPanel createAddProductPanel() {
         JPanel panel = new JPanel(new GridBagLayout());
         panel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
@@ -194,7 +199,7 @@ public class InventoryApp extends JFrame {
             gbc.gridwidth = 1;
 
             JLabel label = new JLabel(labels[i]);
-            label.setFont(new Font("Arial", Font.BOLD, 12));
+            label.setFont(new Font("Arial", Font.BOLD, 24));
             panel.add(label, gbc);
 
             gbc.gridx = 1;
@@ -202,12 +207,12 @@ public class InventoryApp extends JFrame {
 
             fields[i] = new JTextField();
             fields[i].setPreferredSize(new Dimension(250, 30));
-            fields[i].setFont(new Font("Segoe UI", Font.PLAIN, 12));
+            fields[i].setFont(new Font("Segoe UI", Font.PLAIN, 24));
             panel.add(fields[i], gbc);
         }
 
         JButton addButton = new JButton("Add Product");
-        addButton.setFont(new Font("Segoe UI", Font.BOLD, 12));
+        addButton.setFont(new Font("Segoe UI", Font.BOLD, 24));
         addButton.setPreferredSize(new Dimension(150, 35));
 
         gbc.gridx = 1;
@@ -215,7 +220,7 @@ public class InventoryApp extends JFrame {
         gbc.gridwidth = 1;
         panel.add(addButton, gbc);
 
-        // Action Listener için gerekli değişkenler
+        //variables for fields
         JTextField nameField = fields[0];
         JTextField stockField = fields[1];
         JTextField priceField = fields[2];
@@ -233,7 +238,7 @@ public class InventoryApp extends JFrame {
                 manager.addProduct(name, stock, price, category, expiryDate);
                 JOptionPane.showMessageDialog(this, "Product added successfully!");
 
-                // Temizle
+                // clear fields after adding product
                 nameField.setText("");
                 stockField.setText("");
                 priceField.setText("");
@@ -247,6 +252,7 @@ public class InventoryApp extends JFrame {
         return panel;
     }
 
+    // Method to create the Update Stock panel
     private JPanel createUpdateStockPanel() {
         JPanel panel = new JPanel(new GridBagLayout());
         panel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
@@ -259,28 +265,32 @@ public class InventoryApp extends JFrame {
         // Product Name
         gbc.gridx = 0;
         gbc.gridy = 0;
-        panel.add(new JLabel("Product Name:"), gbc);
+        JLabel nameLabel = new JLabel("Product Name:");
+        nameLabel.setFont(new Font("Arial", Font.PLAIN, 24));
+        panel.add(nameLabel, gbc);
 
         gbc.gridx = 1;
         JTextField nameField = new JTextField();
         nameField.setPreferredSize(new Dimension(250, 30));
-        nameField.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+        nameField.setFont(new Font("Segoe UI", Font.PLAIN, 24));
         panel.add(nameField, gbc);
 
         // New Stock Quantity
         gbc.gridx = 0;
         gbc.gridy = 1;
-        panel.add(new JLabel("New Stock Quantity:"), gbc);
+        JLabel quantityLabel = new JLabel("New Stock Quantity:");
+        quantityLabel.setFont(new Font("Arial", Font.PLAIN, 24));
+        panel.add(quantityLabel, gbc);
 
         gbc.gridx = 1;
         JTextField stockField = new JTextField();
         stockField.setPreferredSize(new Dimension(250, 30));
-        stockField.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+        stockField.setFont(new Font("Segoe UI", Font.PLAIN, 24));
         panel.add(stockField, gbc);
 
         // Update Button
         JButton updateButton = new JButton("Update Stock");
-        updateButton.setFont(new Font("Segoe UI", Font.BOLD, 12));
+        updateButton.setFont(new Font("Segoe UI", Font.BOLD, 24));
         updateButton.setPreferredSize(new Dimension(150, 35));
 
         gbc.gridx = 1;
@@ -301,6 +311,7 @@ public class InventoryApp extends JFrame {
         return panel;
     }
 
+    // Method to create the List Products panel
     private JPanel createListProductsPanel() {
         JPanel panel = new JPanel(new BorderLayout());
         panel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
@@ -314,13 +325,12 @@ public class InventoryApp extends JFrame {
         DefaultTableModel model = new DefaultTableModel(columnNames, 0);
         JTable table = new JTable(model);
 
-        // Tablo stilini güncelleyelim
-        table.setFont(new Font("Segoe UI", Font.PLAIN, 12));
-        table.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 12));
+        table.setFont(new Font("Arial", Font.PLAIN, 24));
+        table.getTableHeader().setFont(new Font("Arial", Font.PLAIN, 24));
         table.setRowHeight(25);
 
         JButton refreshButton = new JButton("Refresh Products");
-        refreshButton.setFont(new Font("Segoe UI", Font.BOLD, 12));
+        refreshButton.setFont(new Font("Arial", Font.PLAIN, 24));
         refreshButton.setPreferredSize(new Dimension(150, 35));
         refreshButton.addActionListener(e -> {
             model.setRowCount(0);
@@ -341,6 +351,7 @@ public class InventoryApp extends JFrame {
         return panel;
     }
 
+    // Method to create the Remove Product panel
     private JPanel createRemoveProductPanel() {
         JPanel panel = new JPanel(new GridBagLayout());
         panel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
@@ -353,17 +364,19 @@ public class InventoryApp extends JFrame {
         // Product Name
         gbc.gridx = 0;
         gbc.gridy = 0;
-        panel.add(new JLabel("Product Name:"), gbc);
+        JLabel nameLabel = new JLabel("Product Name:");
+        nameLabel.setFont(new Font("Arial", Font.PLAIN, 24));
+        panel.add(nameLabel, gbc);
 
         gbc.gridx = 1;
         JTextField nameField = new JTextField();
         nameField.setPreferredSize(new Dimension(250, 30));
-        nameField.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+        nameField.setFont(new Font("Arial", Font.PLAIN, 24));
         panel.add(nameField, gbc);
 
         // Remove Button
         JButton removeButton = new JButton("Remove Product");
-        removeButton.setFont(new Font("Segoe UI", Font.BOLD, 12));
+        removeButton.setFont(new Font("Arial", Font.PLAIN, 24));
         removeButton.setPreferredSize(new Dimension(150, 35));
 
         gbc.gridx = 1;
@@ -382,6 +395,7 @@ public class InventoryApp extends JFrame {
         return panel;
     }
 
+    // Method to create the Stock by Category panel
     private JPanel createStockByCategoryPanel() {
         JPanel panel = new JPanel(new GridBagLayout());
         panel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
@@ -394,12 +408,14 @@ public class InventoryApp extends JFrame {
         // Category Name
         gbc.gridx = 0;
         gbc.gridy = 0;
-        panel.add(new JLabel("Category Name:"), gbc);
+        JLabel catNameLabel = new JLabel("Category Name:");
+        catNameLabel.setFont(new Font("Arial", Font.PLAIN, 24));
+        panel.add(catNameLabel, gbc);
 
         gbc.gridx = 1;
         JTextField categoryField = new JTextField();
         categoryField.setPreferredSize(new Dimension(250, 30));
-        categoryField.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+        categoryField.setFont(new Font("Arial", Font.PLAIN, 24));
         panel.add(categoryField, gbc);
 
         // Result Area
@@ -408,14 +424,14 @@ public class InventoryApp extends JFrame {
         gbc.gridwidth = 2;
         JTextArea resultArea = new JTextArea();
         resultArea.setEditable(false);
-        resultArea.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+        resultArea.setFont(new Font("Arial", Font.PLAIN, 24));
         JScrollPane scrollPane = new JScrollPane(resultArea);
         scrollPane.setPreferredSize(new Dimension(250, 100));
         panel.add(scrollPane, gbc);
 
         // Check Button
         JButton checkButton = new JButton("Check Stock");
-        checkButton.setFont(new Font("Segoe UI", Font.BOLD, 12));
+        checkButton.setFont(new Font("Arial", Font.PLAIN, 24));
         checkButton.setPreferredSize(new Dimension(150, 35));
 
         gbc.gridx = 1;
@@ -436,6 +452,7 @@ public class InventoryApp extends JFrame {
         return panel;
     }
 
+    // Method to create the Stock by Product panel
     private JPanel createStockByProductPanel() {
         JPanel panel = new JPanel(new GridBagLayout());
         panel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
@@ -448,12 +465,14 @@ public class InventoryApp extends JFrame {
         // Product Name
         gbc.gridx = 0;
         gbc.gridy = 0;
-        panel.add(new JLabel("Product Name:"), gbc);
+        JLabel nameLabel = new JLabel("Product Name:");
+        nameLabel.setFont(new Font("Arial", Font.PLAIN, 24));
+        panel.add(nameLabel, gbc);
 
         gbc.gridx = 1;
         JTextField productNameField = new JTextField();
         productNameField.setPreferredSize(new Dimension(250, 30));
-        productNameField.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+        productNameField.setFont(new Font("Arial", Font.PLAIN, 24));
         panel.add(productNameField, gbc);
 
         // Result Area
@@ -462,14 +481,14 @@ public class InventoryApp extends JFrame {
         gbc.gridwidth = 2;
         JTextArea resultArea = new JTextArea();
         resultArea.setEditable(false);
-        resultArea.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+        resultArea.setFont(new Font("Arial", Font.PLAIN, 24));
         JScrollPane scrollPane = new JScrollPane(resultArea);
         scrollPane.setPreferredSize(new Dimension(250, 100));
         panel.add(scrollPane, gbc);
 
         // Check Button
         JButton checkButton = new JButton("Check Stock");
-        checkButton.setFont(new Font("Segoe UI", Font.BOLD, 12));
+        checkButton.setFont(new Font("Arial", Font.PLAIN, 24));
         checkButton.setPreferredSize(new Dimension(150, 35));
 
         gbc.gridx = 1;
@@ -490,6 +509,7 @@ public class InventoryApp extends JFrame {
         return panel;
     }
 
+    // Method to create the Expiring Products panel
     private JPanel createExpiringProductsPanel() {
         JPanel panel = new JPanel(new GridBagLayout());
         panel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
@@ -502,12 +522,14 @@ public class InventoryApp extends JFrame {
         // Expiry Date
         gbc.gridx = 0;
         gbc.gridy = 0;
-        panel.add(new JLabel("Expiry Date (YYYY-MM-DD):"), gbc);
+        JLabel expiryLabel = new JLabel("Expiry Date (YYYY-MM-DD):");
+        expiryLabel.setFont(new Font("Arial", Font.PLAIN, 24));
+        panel.add(expiryLabel, gbc);
 
         gbc.gridx = 1;
         JTextField expiryField = new JTextField();
         expiryField.setPreferredSize(new Dimension(250, 30));
-        expiryField.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+        expiryField.setFont(new Font("Arial", Font.PLAIN, 24));
         panel.add(expiryField, gbc);
 
         // Result Area
@@ -516,14 +538,14 @@ public class InventoryApp extends JFrame {
         gbc.gridwidth = 2;
         JTextArea resultArea = new JTextArea();
         resultArea.setEditable(false);
-        resultArea.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+        resultArea.setFont(new Font("Arial", Font.PLAIN, 24));
         JScrollPane scrollPane = new JScrollPane(resultArea);
         scrollPane.setPreferredSize(new Dimension(250, 200));
         panel.add(scrollPane, gbc);
 
         // Check Button
         JButton checkButton = new JButton("Show Expiring Products");
-        checkButton.setFont(new Font("Segoe UI", Font.BOLD, 12));
+        checkButton.setFont(new Font("Arial", Font.PLAIN, 24));
         checkButton.setPreferredSize(new Dimension(200, 35));
 
         gbc.gridx = 1;
@@ -548,11 +570,11 @@ public class InventoryApp extends JFrame {
         return panel;
     }
 
+    // Method to create the Pharmacy Menu
     private void openPharmacyMenu(String pharmacyName) {
         getContentPane().removeAll();
         tabbedPane = new JTabbedPane();
 
-        // PharmacyObserver oluştururken pharmacyName parametresini geçiriyoruz
         PharmacyObserver pharmacy = new PharmacyObserver(pharmacyName);
 
         // Check Stock Tab
@@ -569,8 +591,8 @@ public class InventoryApp extends JFrame {
 
         // Logout Button
         JButton logoutButton = new JButton("Logout");
-        logoutButton.setFont(new Font("Segoe UI", Font.BOLD, 12));
-        logoutButton.setPreferredSize(new Dimension(100, 35));
+        logoutButton.setFont(new Font("Arial", Font.PLAIN, 24));
+        logoutButton.setPreferredSize(new Dimension(200, 35));
         logoutButton.addActionListener(e -> {
             getContentPane().removeAll();
             JPanel loginPanel = createLoginPanel();
@@ -591,6 +613,7 @@ public class InventoryApp extends JFrame {
         repaint();
     }
 
+    // Method to create the Check Stock panel
     private JPanel createCheckStockPanel(PharmacyObserver pharmacy) {
         JPanel panel = new JPanel(new GridBagLayout());
         panel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
@@ -603,17 +626,19 @@ public class InventoryApp extends JFrame {
         // Product Name
         gbc.gridx = 0;
         gbc.gridy = 0;
-        panel.add(new JLabel("Product Name:"), gbc);
+        JLabel nameLabel = new JLabel("Product Name:");
+        nameLabel.setFont(new Font("Arial", Font.PLAIN, 24));
+        panel.add(nameLabel, gbc);
 
         gbc.gridx = 1;
         JTextField productNameField = new JTextField();
         productNameField.setPreferredSize(new Dimension(250, 30));
-        productNameField.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+        productNameField.setFont(new Font("Arial", Font.PLAIN, 24));
         panel.add(productNameField, gbc);
 
         // Check Stock Button
         JButton checkStockButton = new JButton("Check Stock");
-        checkStockButton.setFont(new Font("Segoe UI", Font.BOLD, 12));
+        checkStockButton.setFont(new Font("Arial", Font.PLAIN, 24));
         checkStockButton.setPreferredSize(new Dimension(150, 35));
 
         gbc.gridx = 1;
@@ -632,6 +657,7 @@ public class InventoryApp extends JFrame {
         return panel;
     }
 
+    // Method to create the Order Product panel
     private JPanel createOrderProductPanel(PharmacyObserver pharmacy) {
         JPanel panel = new JPanel(new GridBagLayout());
         panel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
@@ -644,28 +670,32 @@ public class InventoryApp extends JFrame {
         // Product Name
         gbc.gridx = 0;
         gbc.gridy = 0;
-        panel.add(new JLabel("Product Name:"), gbc);
+        JLabel nameLabel = new JLabel("Product Name:");
+        nameLabel.setFont(new Font("Arial", Font.PLAIN, 24));
+        panel.add(nameLabel, gbc);
 
         gbc.gridx = 1;
         JTextField productNameField = new JTextField();
         productNameField.setPreferredSize(new Dimension(250, 30));
-        productNameField.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+        productNameField.setFont(new Font("Arial", Font.PLAIN, 24));
         panel.add(productNameField, gbc);
 
         // Quantity
         gbc.gridx = 0;
         gbc.gridy = 1;
-        panel.add(new JLabel("Quantity:"), gbc);
+        JLabel quantityLabel = new JLabel("Quantity:");
+        quantityLabel.setFont(new Font("Arial", Font.PLAIN, 24));
+        panel.add(quantityLabel, gbc);
 
         gbc.gridx = 1;
         JTextField quantityField = new JTextField();
         quantityField.setPreferredSize(new Dimension(250, 30));
-        quantityField.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+        quantityField.setFont(new Font("Arial", Font.PLAIN, 24));
         panel.add(quantityField, gbc);
 
         // Order Button
         JButton orderButton = new JButton("Order Product");
-        orderButton.setFont(new Font("Segoe UI", Font.BOLD, 12));
+        orderButton.setFont(new Font("Arial", Font.PLAIN, 24));
         orderButton.setPreferredSize(new Dimension(150, 35));
 
         gbc.gridx = 1;
@@ -696,6 +726,7 @@ public class InventoryApp extends JFrame {
         return panel;
     }
 
+    // Method to create the Track Product panel
     private JPanel createTrackProductPanel(PharmacyObserver pharmacy, String pharmacyName) {
         JPanel panel = new JPanel(new GridBagLayout());
         panel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
@@ -708,17 +739,19 @@ public class InventoryApp extends JFrame {
         // Product Name
         gbc.gridx = 0;
         gbc.gridy = 0;
-        panel.add(new JLabel("Product Name:"), gbc);
+        JLabel nameLabel = new JLabel("Product Name:");
+        nameLabel.setFont(new Font("Arial", Font.PLAIN, 24));
+        panel.add(nameLabel, gbc);
 
         gbc.gridx = 1;
         JTextField productNameField = new JTextField();
         productNameField.setPreferredSize(new Dimension(250, 30));
-        productNameField.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+        productNameField.setFont(new Font("Arial", Font.PLAIN, 24));
         panel.add(productNameField, gbc);
 
         // Track Button
         JButton trackButton = new JButton("Track Product");
-        trackButton.setFont(new Font("Segoe UI", Font.BOLD, 12));
+        trackButton.setFont(new Font("Arial", Font.PLAIN, 24));
         trackButton.setPreferredSize(new Dimension(150, 35));
 
         gbc.gridx = 1;

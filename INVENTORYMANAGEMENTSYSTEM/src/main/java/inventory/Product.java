@@ -2,6 +2,7 @@ package main.java.inventory;
 
 import java.time.LocalDate;
 
+// Product class implements ProductComponent interface
 public class Product implements ProductComponent {
 
     private String name;
@@ -10,7 +11,6 @@ public class Product implements ProductComponent {
     private String category;
     private LocalDate expiryDate;
 
-    // Constructor for Product class
     public Product(String name, int stock, double price, String category, LocalDate expiryDate) {
         this.name = name;
         this.stock = stock;
@@ -56,6 +56,7 @@ public class Product implements ProductComponent {
         this.expiryDate = expiryDate;
     }
 
+    // Overridden methods from ProductComponent interface
     @Override
     public void add(ProductComponent productComponent) {
         throw new UnsupportedOperationException();

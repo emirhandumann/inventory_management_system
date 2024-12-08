@@ -1,6 +1,8 @@
 package main.java.inventory;
 
+// Observer class for stock alerts
 public class StockAlertObserver implements Observer {
+
     private int threshold;
 
     public StockAlertObserver(int threshold) {

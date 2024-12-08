@@ -2,7 +2,9 @@ package main.java.inventory;
 
 import java.time.LocalDate;
 
+// Sample data for initializing the inventory system.
 public class SampleData {
+
     public static void initializeSampleData(InventoryManager manager) {
         manager.addProduct("Paracetamol", 100, 5.99, "Painkillers", LocalDate.of(2024, 12, 31));
         manager.addProduct("Ibuprofen", 150, 7.99, "Painkillers", LocalDate.of(2023, 11, 30));
