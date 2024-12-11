@@ -39,7 +39,7 @@ The APW system architecture is defined with a robust UML design, showcasing:
 
 Below is the UML diagram representing the architecture of APW:
 
-![UML Diagram](images/uml_diagram.png)
+![UML Diagram](INVENTORYMANAGEMENTSYSTEM/images/uml_diagram.png)
 
 ## Real-World Applications
 - **Efficiency**: Automated processes reduce manual work for pharmacies.
