@@ -20,17 +20,17 @@ Akdeniz Pharmaceutical Warehouse (APW) is a software solution designed to optimi
 - **Track Product**: Monitor the status of ordered medications.
 
 ## Design Patterns Used
-1. **Composite Pattern**:
+1. **Singleton Pattern**:
+   - Maintains a single instance for critical components like the inventory database.
+   - Prevents duplicate data and ensures consistency across the system.
+     
+2. **Composite Pattern**:
    - Organizes medications into hierarchical categories (e.g., "Antibiotics," "Pain Relievers").
    - Simplifies inventory navigation and management.
 
-2. **Observer Pattern**:
+3. **Observer Pattern**:
    - Ensures real-time notifications for stock changes.
    - Keeps pharmacies and the warehouse synchronized on stock levels.
-
-3. **Singleton Pattern**:
-   - Maintains a single instance for critical components like the inventory database.
-   - Prevents duplicate data and ensures consistency across the system.
 
 ## UML Diagram
 The APW system architecture is defined with a robust UML design, showcasing:
@@ -46,23 +46,9 @@ Below is the UML diagram representing the architecture of APW:
 - **Customer Satisfaction**: Ensures essential medications are always in stock.
 - **Cost Savings**: Avoids stockouts and emergency delivery costs.
 
-## Installation
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/emirhandumann/inventory_management_system.git
-   ```
-2. Navigate to the project directory:
-   ```bash
-   cd inventory_management_system
-   ```
-3. Compile the project:
-   ```bash
-   javac -d bin src/**/*.java
-   ```
-4. Run the application:
-   ```bash
-   java -cp bin Main
-   ```
+## Login Informations
+- **Warehouse**: eczadeposu123
+- **Pharmacy**: akdeniz123
 
 ## Contributors
 - **Emirhan Duman**
