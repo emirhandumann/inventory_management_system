@@ -37,6 +37,10 @@ The APW system architecture is defined with a robust UML design, showcasing:
 - **Interfaces**: Observable, Observer, ProductComponent.
 - **Key Classes**: InventoryManager, PharmacyObserver, StockAlertObserver, Product, InventoryComposite.
 
+Below is the UML diagram representing the architecture of APW:
+
+![UML Diagram](images/uml_diagram.png)
+
 ## Real-World Applications
 - **Efficiency**: Automated processes reduce manual work for pharmacies.
 - **Customer Satisfaction**: Ensures essential medications are always in stock.
